@@ -15,7 +15,7 @@ https://sjsu.instructure.com/courses/1571305/assignments/6776902
 
 ## Demo
 
-![Demo](./demo.mp4)
+https://github.com/theGeekyLad/cmpe277-assignment-1/assets/15625446/d9db1f34-9b83-4989-a092-f63df78d6355
 
 ## Screenshots
 
