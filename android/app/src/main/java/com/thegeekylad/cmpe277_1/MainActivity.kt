@@ -38,142 +38,50 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val counter = remember { mutableStateOf(0) }
-            val showDialog = remember { mutableStateOf(false) }
-
             CMPE277_1Theme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainComposable(
-                        applicationContext,
-                        counter,
-                        showDialog
-                    )
-                    if (showDialog.value)
-                        MyAlert(
-                            showDialog
-                        )
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.weight(1f, true)
+                        ) {
+                            TextButton(
+                                onClick = {
+                                    val intent = Intent(applicationContext, Assignment1::class.java).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    applicationContext.startActivity(intent)
+                                },
+                                colors = ButtonDefaults.buttonColors()
+                            ) {
+                                Text("Assignment - 1")
+                            }
+                        }
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.weight(1f, true)
+                        ) {
+                            TextButton(
+                                onClick = {
+                                    val intent = Intent(applicationContext, Assignment2::class.java).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    applicationContext.startActivity(intent)
+                                },
+                                colors = ButtonDefaults.buttonColors()
+                            ) {
+                                Text("Assignment - 2")
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CMPE277_1Theme {
-        Greeting("Android")
-    }
-}
-
-@ExperimentalMaterial3Api
-@ExperimentalUnitApi
-@Composable
-fun MainComposable(
-    context: Context,
-    counter: MutableState<Int>,
-    showDialog: MutableState<Boolean>
-) {
-
-    val launcher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            it.data?.let { data ->
-                counter.value = counter.value + Integer.parseInt(data.data.toString())
-            }
-        }
-
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f, true)
-        ) {
-            TextButton(
-                onClick = {
-                    val intent = Intent(context, MainActivityB::class.java)
-                    launcher.launch(intent)
-                },
-                colors = ButtonDefaults.buttonColors()) {
-                Text("Start activity B")
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f, true)
-        ) {
-            TextButton(
-                onClick = {
-                    val intent = Intent(context, MainActivityC::class.java)
-                    launcher.launch(intent)
-                },
-                colors = ButtonDefaults.buttonColors()) {
-                Text("Start activity C")
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f, true)
-        ) {
-            TextButton(
-                onClick = {
-                    val intent = Intent(context, Assignment2::class.java)
-                    launcher.launch(intent)
-                },
-                colors = ButtonDefaults.buttonColors()) {
-                Text("Assignment - 2")
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f, true)
-        ) {
-            TextButton(
-                onClick = { showDialog.value = true },
-                colors = ButtonDefaults.buttonColors()) {
-                Text("Start dialog")
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f, true)
-        ) {
-            Text("Thread counter: " + counter.value)
-        }
-    }
-}
-
-@Composable
-fun MyAlert(
-    showDialog: MutableState<Boolean>
-) {
-    AlertDialog(
-        title = {
-            Text("Dialog")
-        },
-        text = {
-            Text("Hey, this is a dialog!")
-        },
-        confirmButton = {
-            TextButton(
-                onClick = { showDialog.value = false }
-            ) {
-                Text("Close")
-            }
-        },
-        onDismissRequest = { showDialog.value = false }
-    )
 }

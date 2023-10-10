@@ -41,8 +41,15 @@ class Assignment2 : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            WebLinkAndPhoneCallApp(applicationContext = applicationContext) {
-                finish()
+            CMPE277_1Theme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    WebLinkAndPhoneCallApp(applicationContext = applicationContext) {
+                        finish()
+                    }
+                }
             }
         }
     }
@@ -53,109 +60,109 @@ class Assignment2 : ComponentActivity() {
 fun WebLinkAndPhoneCallApp(applicationContext: Context, onClose: () -> Unit) {
     val url = remember { mutableStateOf("") }
     val phoneNumber = remember { mutableStateOf("") }
-
-    CMPE277_1Theme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            modifier = Modifier.weight(3f, true)
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+            TextField(
+                value = url.value,
+                onValueChange = { url.value = it },
+                placeholder = {
+                    Text(text = "URL")
+                }
+            )
+            TextButton(
+                onClick = {
+                    if (TextUtils.isEmpty(url.value))
+                        Toast.makeText(
+                            applicationContext,
+                            "URL cannot be empty!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    else {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url.value))
+                        intent.resolveActivity(applicationContext.packageManager)
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+                        applicationContext.startActivity(intent)
+                    }
+                },
+                colors = ButtonDefaults.buttonColors()
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                    modifier = Modifier.weight(3f, true)
-                ) {
-                    TextField(
-                        value = url.value,
-                        onValueChange = { url.value = it },
-                        placeholder = {
-                            Text(text = "URL")
+                Text(text = "Launch")
+            }
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            modifier = Modifier.weight(1f, true)
+        ) {
+            Divider(
+                thickness = 1.dp,
+                color = Color.Gray,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            modifier = Modifier.weight(3f, true)
+        ) {
+            TextField(
+                value = phoneNumber.value,
+                onValueChange = { phoneNumber.value = it },
+                placeholder = {
+                    Text(text = "Phone")
+                }
+            )
+            TextButton(
+                onClick = {
+                    if (TextUtils.isEmpty(phoneNumber.value))
+                        Toast.makeText(
+                            applicationContext,
+                            "Phone number cannot be empty!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    else {
+                        val intent = Intent(Intent.ACTION_DIAL).apply {
+                            data = Uri.parse("tel:${phoneNumber.value}")
                         }
-                    )
-                    TextButton(
-                        onClick = {
-                            if (TextUtils.isEmpty(url.value))
-                                Toast.makeText(applicationContext, "URL cannot be empty!", Toast.LENGTH_LONG).show()
-                            else {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url.value))
-                                intent.resolveActivity(applicationContext.packageManager)
-                                intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-                                applicationContext.startActivity(intent)
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors()
-                    ) {
-                        Text(text = "Launch")
+                        intent.resolveActivity(applicationContext.packageManager)
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+                        applicationContext.startActivity(intent)
                     }
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                    modifier = Modifier.weight(1f, true)
-                ) {
-                    Divider(
-                        thickness = 1.dp,
-                        color = Color.Gray,
-                        modifier = Modifier.padding(10.dp)
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                    modifier = Modifier.weight(3f, true)
-                ) {
-                    TextField(
-                        value = phoneNumber.value,
-                        onValueChange = { phoneNumber.value = it },
-                        placeholder = {
-                            Text(text = "Phone")
-                        }
-                    )
-                    TextButton(
-                        onClick = {
-                            if (TextUtils.isEmpty(phoneNumber.value))
-                                Toast.makeText(applicationContext, "Phone number cannot be empty!", Toast.LENGTH_LONG).show()
-                            else {
-                                val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = Uri.parse("tel:${phoneNumber.value}")
-                                }
-                                intent.resolveActivity(applicationContext.packageManager)
-                                intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-                                applicationContext.startActivity(intent)
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors()
-                    ) {
-                        Text(text = "Ring")
-                    }
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                    modifier = Modifier.weight(1f, true)
-                ) {
-                    Divider(
-                        thickness = 1.dp,
-                        color = Color.Gray,
-                        modifier = Modifier.padding(10.dp)
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-                    modifier = Modifier.weight(2f, true)
-                ) {
-                    TextButton(
-                        onClick = {
-                            onClose()
-                        },
-                        colors = ButtonDefaults.buttonColors()
-                    ) {
-                        Text(text = "Close App")
-                    }
-                }
+                },
+                colors = ButtonDefaults.buttonColors()
+            ) {
+                Text(text = "Ring")
+            }
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            modifier = Modifier.weight(1f, true)
+        ) {
+            Divider(
+                thickness = 1.dp,
+                color = Color.Gray,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            modifier = Modifier.weight(2f, true)
+        ) {
+            TextButton(
+                onClick = {
+                    onClose()
+                },
+                colors = ButtonDefaults.buttonColors()
+            ) {
+                Text(text = "Close App")
             }
         }
     }
