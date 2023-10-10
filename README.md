@@ -1,4 +1,4 @@
-# CMPE 277 | Assignment - 1
+# CMPE 277 | Assignments
 
 ## Student Info
 
@@ -12,6 +12,11 @@
 The purpose of the app is to understand the activity life cycle and the role of Android OS plays in handling life cycle events.
 
 https://sjsu.instructure.com/courses/1571305/assignments/6776902
+
+## Roadmap
+
+- [x] Assignment - 1
+- [x] Assignment - 2
 
 ## Demo
 
