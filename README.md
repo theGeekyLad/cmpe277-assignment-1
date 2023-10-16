@@ -17,6 +17,7 @@ https://sjsu.instructure.com/courses/1571305/assignments/6776902
 
 - [x] Assignment - 1
 - [x] Assignment - 2
+- [x] Assignment - 3
 
 ## Demos
 
