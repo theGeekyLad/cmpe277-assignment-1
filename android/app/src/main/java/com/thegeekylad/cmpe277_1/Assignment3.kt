@@ -174,7 +174,7 @@ class Assignment3 : ComponentActivity() {
     }
 
     interface OpenApiService {
-        @Headers("Authorization: Bearer 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")
+        @Headers("Authorization: Bearer <api_key>")  // TODO paste openai api key
         @POST("chat/completions")
         fun prompt(@Body requestPrompt: RequestPrompt): Call<ResponseChatCompletions>
 
