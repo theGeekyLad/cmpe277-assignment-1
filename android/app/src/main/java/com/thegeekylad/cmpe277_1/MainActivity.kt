@@ -79,6 +79,22 @@ class MainActivity : ComponentActivity() {
                                 Text("Assignment - 2")
                             }
                         }
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.weight(1f, true)
+                        ) {
+                            TextButton(
+                                onClick = {
+                                    val intent = Intent(applicationContext, Assignment3::class.java).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    applicationContext.startActivity(intent)
+                                },
+                                colors = ButtonDefaults.buttonColors()
+                            ) {
+                                Text("Assignment - 3")
+                            }
+                        }
                     }
                 }
             }
