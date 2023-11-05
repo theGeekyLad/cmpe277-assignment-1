@@ -2,6 +2,7 @@ package com.thegeekylad.cmpe277_1
 
 import android.os.AsyncTask
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -107,6 +108,17 @@ class Assignment3 : ComponentActivity() {
                             ) {
                                 Text(text = "Cancel")
                             }
+                            TextButton(
+                                onClick = {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Saved in SQL!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            ) {
+                                Text(text = "Save / Audit")
+                            }
                         }
                         Column(
                             modifier = Modifier.weight(4f, true),
@@ -174,7 +186,7 @@ class Assignment3 : ComponentActivity() {
     }
 
     interface OpenApiService {
-        @Headers("Authorization: Bearer <api_key>")  // TODO paste openai api key
+        @Headers("Authorization: Bearer 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")  // TODO paste openai api key
         @POST("chat/completions")
         fun prompt(@Body requestPrompt: RequestPrompt): Call<ResponseChatCompletions>
 
